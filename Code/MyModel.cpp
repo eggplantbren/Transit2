@@ -1,6 +1,7 @@
 #include "MyModel.h"
 #include "RandomNumberGenerator.h"
 #include "Utils.h"
+#include "Data.h"
 #include <cmath>
 
 using namespace std;
@@ -97,7 +98,26 @@ double MyModel::perturb()
 
 double MyModel::logLikelihood() const
 {
-	return 0.;
+	const vector<double> t = Data::get_instance().get_t();
+	const vector<double> y = Data::get_instance().get_y();
+
+	double logL = 0.;
+
+	double mu;
+	for(size_t i=0; i<y.size(); i++)
+	{
+		// The big signal
+		mu = A*sin(2.*M_PI*t[i]/T + phi);
+
+		// The transit
+		if(mod(t[i] + 0.5*width + phase*period, period) < width)
+			mu -= depth;
+
+		logL += -0.5*log(M_PI) - log(sigma)
+				-0.5*pow((y[i] - mu)/sigma, 2);
+	}
+
+	return logL;
 }
 
 void MyModel::print(std::ostream& out) const

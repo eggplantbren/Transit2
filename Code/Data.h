@@ -11,6 +11,8 @@ class Data
 	public:
 		Data();
 		void load(const char* filename);
+		const std::vector<double>& get_t() const { return t; }
+		const std::vector<double>& get_y() const { return y; }
 
 	// Singleton
 	private:
