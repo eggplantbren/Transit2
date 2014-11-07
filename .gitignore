@@ -1,3 +1,4 @@
+*.pyc
 main
 sample.txt
 sample_info.txt
