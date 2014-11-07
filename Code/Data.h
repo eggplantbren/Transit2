@@ -1,9 +1,12 @@
 #ifndef _Data_
 #define _Data_
 
+#include <vector>
+
 class Data
 {
 	private:
+		std::vector<double> t, y;
 
 	public:
 		Data();

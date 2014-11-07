@@ -31,9 +31,14 @@ plot(t, y, 'r', linewidth=1)
 sigma = 0.1
 y += sigma*randn(N)
 
-# Plot the data
+# Plot and save the data
 plot(t, y, 'b.', markersize=1)
 xlabel('Time (years)', fontsize=16)
 ylabel('Brightness', fontsize=16)
+
+data = empty((N, 2))
+data[:,0], data[:,1] = t, y
+
+savetxt('fake_data.txt', data)
 show()
 
